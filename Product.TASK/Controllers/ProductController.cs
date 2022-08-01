@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Product.TASK.Dtos;
 using Product.TASK.Services;
 
 namespace Product.TASK.Controllers
@@ -27,6 +28,19 @@ namespace Product.TASK.Controllers
             _productService.Delete(Id);
 
             return Ok(" Done!!!! ");
+        }
+        [HttpPost]
+        public IActionResult Create([FromBody]CreateDto dto)
+        {
+
+            return Ok(_productService.Create(dto));
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] UpdateDto dto)
+        {
+
+            return Ok(_productService.Update(dto));
         }
     }
 }
