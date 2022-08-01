@@ -1,4 +1,5 @@
-﻿using Product.TASK.Models;
+﻿using Product.TASK.Dtos;
+using Product.TASK.Models;
 using System.Collections.Generic;
 
 namespace Product.TASK.Services
@@ -8,5 +9,7 @@ namespace Product.TASK.Services
         void Delete(int Id);
         ProductEntity Get(int Id);
         List<ProductEntity> GetAll();
+        int Update(UpdateDto dto);
+        int Create(CreateDto dto);
     }
 }
