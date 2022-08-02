@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Product.TASK.Data;
 
 namespace Product.TASK.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220802130056_add-data")]
+    partial class adddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,14 +228,16 @@ namespace Product.TASK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdEmployee")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("departmentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("departmentId");
 
                     b.ToTable("Departments");
                 });
@@ -264,12 +268,6 @@ namespace Product.TASK.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdDepartment")
-                        .HasColumnType("int");
-
                     b.Property<float>("cost")
                         .HasColumnType("real");
 
@@ -281,8 +279,6 @@ namespace Product.TASK.Data.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.ToTable("products");
                 });
@@ -338,16 +334,13 @@ namespace Product.TASK.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Product.TASK.Models.ProductEntity", b =>
-                {
-                    b.HasOne("Product.TASK.Models.Department", null)
-                        .WithMany("ProductEntity")
-                        .HasForeignKey("DepartmentId");
-                });
-
             modelBuilder.Entity("Product.TASK.Models.Department", b =>
                 {
-                    b.Navigation("ProductEntity");
+                    b.HasOne("Product.TASK.Models.Department", "department")
+                        .WithMany()
+                        .HasForeignKey("departmentId");
+
+                    b.Navigation("department");
                 });
 #pragma warning restore 612, 618
         }
