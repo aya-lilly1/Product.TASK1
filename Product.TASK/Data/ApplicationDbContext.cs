@@ -15,5 +15,7 @@ namespace Product.TASK.Data
         }
 
         public DbSet<ProductEntity> products { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

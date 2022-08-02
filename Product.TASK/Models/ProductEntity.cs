@@ -9,5 +9,8 @@ namespace Product.TASK.Models
         public string name { get; set; }
         public float cost { get; set; }
         public float price { get; set; }
+
+        public int IdDepartment { get; set; }
+        public Department Department;
     }
 }

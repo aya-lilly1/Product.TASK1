@@ -34,6 +34,11 @@ namespace Product.TASK.Services
         }
         public int Create (CreateDto dto)
         {
+            var nameIsExist = _db.products.Any(x => x.name == dto.name);
+            if (nameIsExist)
+            {
+                throw new DuplicatedProductNameException();
+            }
             if (dto.price < dto.cost)
             {
                 throw new PriceLessCost();
